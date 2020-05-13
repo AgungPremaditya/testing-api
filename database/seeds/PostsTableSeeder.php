@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use Faker\Factory as Faker;
+
 class PostsTableSeeder extends Seeder
 {
     /**
@@ -11,10 +13,14 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('post')->insert([
-            'title'     => Str::random(10),
-            'author'    => Str::random(15),
-            'content'   => Str::random(255)
-        ]);
+        $faker = Faker::create('en_EN');
+
+        for ($i=0; $i < 5000; $i++) {
+            DB::table('post')->insert([
+                'title'     => $faker->name."'s Books",
+                'author'    => $faker->name,
+                'content'   => $faker->paragraph
+            ]);
+        }
     }
 }
